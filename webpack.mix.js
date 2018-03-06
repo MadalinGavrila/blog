@@ -16,9 +16,18 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.styles([
 
-    'resources/assets/css/libs/bootstrap.min.css'
+    'resources/assets/css/libs/bootstrap.min.css',
+    'resources/assets/css/libs/blog.css'
 
 ], 'public/css/libs.css');
+
+mix.styles([
+
+    'resources/assets/css/libs/bootstrap.min.css',
+    'resources/assets/css/libs/sb-admin.css',
+    'resources/assets/css/libs/font-awesome.min.css'
+
+], 'public/css/libs-admin.css');
 
 mix.scripts([
 

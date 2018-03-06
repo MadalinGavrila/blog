@@ -12,9 +12,9 @@
     <title>@yield('title')</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{asset('css/libs.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/libs.css')}}">
 
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
     @yield('styles')
 
@@ -27,7 +27,7 @@
 
 </head>
 
-<body id="body-front">
+<body>
 
 <!-- Navigation -->
 @yield('navbar')

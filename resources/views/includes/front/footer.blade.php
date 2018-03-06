@@ -1,4 +1,4 @@
-<footer id="footer-front">
+<footer>
     <div class="row">
         <div class="col-lg-12">
             <p class="text-center">Copyright &copy; Blog Madalin Gavrila {{\Carbon\Carbon::now()->year}}</p>
