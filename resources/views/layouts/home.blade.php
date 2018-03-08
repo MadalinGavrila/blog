@@ -46,8 +46,6 @@
     </div>
     <!-- /.row -->
 
-    <hr>
-
     <!-- Footer -->
     @yield('footer')
 
