@@ -17,6 +17,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/contact', 'HomeController@contact')->name('home.contact');
 
+Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
+
 Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/admin', 'AdminController@index')->name('admin');
