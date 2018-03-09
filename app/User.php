@@ -26,4 +26,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $uploads = '/images/';
+
+    public function photoPlaceholder() {
+        return $this->uploads . "placeholder_user.jpg";
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+
+    public function photo()
+    {
+        return $this->belongsTo('App\Photo');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
 }
