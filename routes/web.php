@@ -17,6 +17,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/contact', 'HomeController@contact')->name('home.contact');
 
+Route::get('/post/{slug}', 'HomeController@post')->name('home.post');
+
+Route::get('/post/category/{id}', 'HomeController@postsCategory')->name('home.category.post');
+
 Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
 
 Route::group(['middleware'=>'auth'], function(){

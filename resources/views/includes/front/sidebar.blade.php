@@ -18,27 +18,16 @@
     <div class="well">
         <h4>Blog Categories</h4>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <ul class="list-unstyled">
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
+                    @foreach($categories as $category)
+                        <li><a href="{{route('home.category.post', $category->id)}}">{{$category->name}}</a> <span class="badge pull-right">{{count($category->posts)}}</span></li>
+                    @endforeach
                 </ul>
             </div>
-            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
-    </div>
-
-    <!-- Side Widget Well -->
-    <div class="well">
-        <h4>Side Widget Well</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
     </div>
 
 </div>

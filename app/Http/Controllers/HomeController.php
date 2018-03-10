@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -10,12 +12,40 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('front.index');
+        $posts = Post::orderBy('created_at', 'desc')->paginate(4);
+
+        $categories = Category::all();
+
+        return view('front.index', compact('posts', 'categories'));
     }
 
     public function contact()
     {
-        return view('front.contact');
+        $categories = Category::all();
+
+        return view('front.contact', compact('categories'));
+    }
+
+    public function post($slug)
+    {
+        $post = Post::findBySlugOrFail($slug);
+
+        return view('front.post', compact('post'));
+    }
+
+    public function postsCategory($category_id)
+    {
+        $category = Category::find($category_id);
+
+        if($category){
+            $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(4);
+        } else {
+            $posts = [];
+        }
+
+        $categories = Category::all();
+
+        return view('front.index', compact('posts', 'categories'));
     }
 
     public function sendMail(Request $request)
