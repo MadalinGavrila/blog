@@ -19,7 +19,9 @@ Route::get('/contact', 'HomeController@contact')->name('home.contact');
 
 Route::get('/post/{slug}', 'HomeController@post')->name('home.post');
 
-Route::get('/post/category/{id}', 'HomeController@postsCategory')->name('home.category.post');
+Route::get('/category/{slug}', 'HomeController@postsCategory')->name('home.category.post');
+
+Route::get('/user/{slug}', 'HomeController@postsUser')->name('home.user.post');
 
 Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
 
@@ -55,6 +57,26 @@ Route::group(['middleware'=>'auth'], function(){
         'update'=>'admin.posts.update',
         'show'=>'admin.posts.show',
         'destroy'=>'admin.posts.destroy'
+    ]]);
+
+    Route::resource('/admin/comments', 'PostCommentsController', ['names'=>[
+        'index'=>'admin.comments.index',
+        'create'=>'admin.comments.create',
+        'store'=>'admin.comments.store',
+        'edit'=>'admin.comments.edit',
+        'update'=>'admin.comments.update',
+        'show'=>'admin.comments.show',
+        'destroy'=>'admin.comments.destroy'
+    ]]);
+
+    Route::resource('/admin/comment/replies', 'CommentRepliesController', ['names'=>[
+        'index'=>'admin.comment.replies.index',
+        'create'=>'admin.comment.replies.create',
+        'store'=>'admin.comment.replies.store',
+        'edit'=>'admin.comment.replies.edit',
+        'update'=>'admin.comment.replies.update',
+        'show'=>'admin.comment.replies.show',
+        'destroy'=>'admin.comment.replies.destroy'
     ]]);
 
 });

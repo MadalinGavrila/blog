@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <ul class="list-unstyled">
                     @foreach($categories as $category)
-                        <li><a href="{{route('home.category.post', $category->id)}}">{{$category->name}}</a> <span class="badge pull-right">{{count($category->posts)}}</span></li>
+                        <li><a href="{{route('home.category.post', $category->slug)}}">{{$category->name}}</a> <span class="badge pull-right">{{count($category->posts)}}</span></li>
                     @endforeach
                 </ul>
             </div>

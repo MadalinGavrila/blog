@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -30,18 +31,23 @@ class HomeController extends Controller
     {
         $post = Post::findBySlugOrFail($slug);
 
-        return view('front.post', compact('post'));
+        $categories = Category::all();
+
+        return view('front.post', compact('post', 'categories'));
     }
 
-    public function postsCategory($category_id)
+    public function postsCategory($category_slug)
     {
-        $category = Category::find($category_id);
+        $posts = Category::findBySlugOrFail($category_slug)->posts()->orderBy('created_at', 'desc')->paginate(4);
 
-        if($category){
-            $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(4);
-        } else {
-            $posts = [];
-        }
+        $categories = Category::all();
+
+        return view('front.index', compact('posts', 'categories'));
+    }
+
+    public function postsUser($user_slug)
+    {
+        $posts = User::findBySlugOrFail($user_slug)->posts()->orderBy('created_at', 'desc')->paginate(4);
 
         $categories = Category::all();
 

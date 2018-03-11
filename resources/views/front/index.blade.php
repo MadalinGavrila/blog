@@ -18,7 +18,7 @@
                     <a href="{{route('home.post', $post->slug)}}">{{$post->title}}</a>
                 </h2>
                 <p class="lead">
-                    by <a href="">{{$post->user->username}}</a>
+                    by <a href="{{route('home.user.post', $post->user->slug)}}">{{$post->user->username}}</a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted {{$post->created_at->diffForHumans()}}</p>
                 <hr>
