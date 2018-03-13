@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\CommentReply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentRepliesController extends Controller
 {
@@ -34,7 +36,23 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+
+        $user = Auth::user();
+
+        $data = [
+            'user_id' => $user->id,
+            'comment_id' => $request->comment_id,
+            'body' => $request->body
+        ];
+
+        CommentReply::create($data);
+
+        $request->session()->flash('comment_message', 'Your reply has been submitted and is waiting moderation');
+
+        return redirect()->back();
     }
 
     /**
