@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\CommentReply;
+use App\Photo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CommentRepliesController extends Controller
+class AdminPhotosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,9 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        //
+        $photos = Photo::orderBy('created_at', 'desc')->paginate(8);
+
+        return view('admin.photos.index', compact('photos'));
     }
 
     /**
@@ -37,23 +37,7 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'body' => 'required'
-        ]);
-
-        $user = Auth::user();
-
-        $data = [
-            'user_id' => $user->id,
-            'comment_id' => $request->comment_id,
-            'body' => $request->body
-        ];
-
-        CommentReply::create($data);
-
-        $request->session()->flash('comment_message', 'Your reply has been submitted and is waiting moderation');
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -64,11 +48,7 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::findOrFail($id);
-
-        $replies = $comment->replies()->orderBy('created_at', 'desc')->paginate(8);
-
-        return view('admin.comments.replies.show', compact('replies'));
+        //
     }
 
     /**
@@ -91,11 +71,7 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        CommentReply::findOrFail($id)->update($request->all());
-
-        $request->session()->flash('replies_status', 'Reply has been updated !');
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -104,12 +80,28 @@ class CommentRepliesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        CommentReply::findOrFail($id)->delete();
+        //
+    }
 
-        $request->session()->flash('replies_status', 'Reply has been deleted !');
+    public function deletePhoto(Request $request)
+    {
+        if(isset($request->submit) && !empty($request->checkBoxArray)){
+            if($request->options == 'delete') {
+                $photos = Photo::findOrFail($request->checkBoxArray);
+
+                foreach($photos as $photo){
+                    unlink(public_path() . $photo->file);
+
+                    $photo->delete();
+                }
+
+                return redirect()->back();
+            }
+        }
 
         return redirect()->back();
     }
+
 }

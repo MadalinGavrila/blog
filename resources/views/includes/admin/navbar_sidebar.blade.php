@@ -23,8 +23,8 @@
         <li class="{{Request::is('admin/comments*') ? 'active' : ''}}">
             <a href="{{route('admin.comments.index')}}"><i class="fa fa-comment"></i> Comments</a>
         </li>
-        <li>
-            <a href=""><i class="fa fa-camera"></i> Photos</a>
+        <li class="{{Request::is('admin/photos') ? 'active' : ''}}">
+            <a href="{{route('admin.photos.index')}}"><i class="fa fa-camera"></i> Photos</a>
         </li>
     </ul>
 </div>

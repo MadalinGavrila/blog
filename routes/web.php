@@ -79,4 +79,16 @@ Route::group(['middleware'=>'auth'], function(){
         'destroy'=>'admin.comment.replies.destroy'
     ]]);
 
+    Route::resource('/admin/photos', 'AdminPhotosController', ['names'=>[
+        'index'=>'admin.photos.index',
+        'create'=>'admin.photos.create',
+        'store'=>'admin.photos.store',
+        'edit'=>'admin.photos.edit',
+        'update'=>'admin.photos.update',
+        'show'=>'admin.photos.show',
+        'destroy'=>'admin.photos.destroy'
+    ]]);
+
+    Route::delete('/admin/delete/photo', 'AdminPhotosController@deletePhoto')->name('admin.photos.deletePhoto');
+
 });

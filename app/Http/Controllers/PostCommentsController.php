@@ -68,7 +68,7 @@ class PostCommentsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $comments = $post->comments()->paginate(8);
+        $comments = $post->comments()->orderBy('created_at', 'desc')->paginate(8);
 
         return view('admin.comments.show', compact('comments'));
     }
