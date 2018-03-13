@@ -20,8 +20,8 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href=""><i class="fa fa-comment"></i> Comments</a>
+        <li class="{{Request::is('admin/comments*') ? 'active' : ''}}">
+            <a href="{{route('admin.comments.index')}}"><i class="fa fa-comment"></i> Comments</a>
         </li>
         <li>
             <a href=""><i class="fa fa-camera"></i> Photos</a>

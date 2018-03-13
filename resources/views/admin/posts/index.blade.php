@@ -42,7 +42,7 @@
                         <td>{{$post->user->username}}</td>
                         <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                         <td><a href="{{route('home.post', $post->slug)}}">View Post</a></td>
-                        <td><a href="">{{count($post->comments)}}</a></td>
+                        <td><a href="{{route('admin.comments.show', $post->id)}}">{{count($post->comments)}}</a></td>
                         <td>{{$post->created_at->diffForHumans()}}</td>
                         <td>{{$post->updated_at->diffForHumans()}}</td>
                         <td><a class="btn btn-primary btn-xs" href="{{route('admin.posts.edit', $post->id)}}">Edit</a></td>
