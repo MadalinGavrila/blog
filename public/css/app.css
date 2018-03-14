@@ -4,6 +4,10 @@
   color: red;
 }
 
+.search-error {
+  font-size: 14px;
+}
+
 /* Reply Form */
 
 .reply-form {

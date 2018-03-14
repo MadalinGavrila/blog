@@ -54,6 +54,19 @@ class HomeController extends Controller
         return view('front.index', compact('posts', 'categories'));
     }
 
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'search' => 'required'
+        ]);
+
+        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(1);
+
+        $categories = Category::all();
+
+        return view('front.search', compact('posts', 'categories'));
+    }
+
     public function sendMail(Request $request)
     {
         $this->validate($request, [

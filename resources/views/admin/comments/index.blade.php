@@ -25,6 +25,8 @@
                     <th>Body</th>
                     <th>Post</th>
                     <th>Replies</th>
+                    <th>Created</th>
+                    <th>Updated</th>
                     <th>Approve</th>
                     <th>Delete</th>
                 </tr>
@@ -38,6 +40,8 @@
                         <td>{{$comment->body}}</td>
                         <td><a href="{{route('home.post', $comment->post->slug)}}">View Post</a></td>
                         <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">View Replies</a></td>
+                        <td>{{$comment->created_at->diffForHumans()}}</td>
+                        <td>{{$comment->updated_at->diffForHumans()}}</td>
                         <td>
                             @if($comment->is_active == 1)
                                 {!! Form::open(['method'=>'PATCH', 'action'=>['PostCommentsController@update', $comment->id]]) !!}

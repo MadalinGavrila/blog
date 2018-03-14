@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/search', 'HomeController@search')->name('home.search');
+
 Route::get('/contact', 'HomeController@contact')->name('home.contact');
 
 Route::get('/post/{slug}', 'HomeController@post')->name('home.post');
