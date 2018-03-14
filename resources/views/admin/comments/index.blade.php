@@ -39,7 +39,7 @@
                         <td>{{$comment->user->username}}</td>
                         <td>{{$comment->body}}</td>
                         <td><a href="{{route('home.post', $comment->post->slug)}}">View Post</a></td>
-                        <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">View Replies</a></td>
+                        <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">{{count($comment->replies)}}</a></td>
                         <td>{{$comment->created_at->diffForHumans()}}</td>
                         <td>{{$comment->updated_at->diffForHumans()}}</td>
                         <td>
@@ -81,7 +81,9 @@
 
     @else
 
-        <h1 class="text-center">No Comments</h1>
+        <div class="alert alert-success text-center">
+            <p>No Comments</p>
+        </div>
 
     @endif
 

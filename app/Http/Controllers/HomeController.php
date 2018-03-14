@@ -17,14 +17,18 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return view('front.index', compact('posts', 'categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.index', compact('posts', 'categories', 'recent_posts'));
     }
 
     public function contact()
     {
         $categories = Category::all();
 
-        return view('front.contact', compact('categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.contact', compact('categories', 'recent_posts'));
     }
 
     public function post($slug)
@@ -33,7 +37,9 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return view('front.post', compact('post', 'categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.post', compact('post', 'categories', 'recent_posts'));
     }
 
     public function postsCategory($category_slug)
@@ -42,7 +48,9 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return view('front.index', compact('posts', 'categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.index', compact('posts', 'categories', 'recent_posts'));
     }
 
     public function postsUser($user_slug)
@@ -51,7 +59,9 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return view('front.index', compact('posts', 'categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.index', compact('posts', 'categories', 'recent_posts'));
     }
 
     public function search(Request $request)
@@ -64,7 +74,9 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return view('front.search', compact('posts', 'categories'));
+        $recent_posts = Post::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('front.search', compact('posts', 'categories', 'recent_posts'));
     }
 
     public function sendMail(Request $request)

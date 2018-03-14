@@ -74,7 +74,9 @@
 
         @else
 
-            <h1 class="text-center">No Categories</h1>
+            <div class="alert alert-success text-center">
+                <p>No Categories</p>
+            </div>
 
         @endif
     </div>

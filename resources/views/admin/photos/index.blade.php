@@ -78,7 +78,9 @@
 
     @else
 
-        <h1 class="text-center">No Photos</h1>
+        <div class="alert alert-success text-center">
+            <p>No Photos</p>
+        </div>
 
     @endif
 

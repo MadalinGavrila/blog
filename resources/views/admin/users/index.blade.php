@@ -61,7 +61,9 @@
 
     @else
 
-        <h1 class="text-center">No Users</h1>
+        <div class="alert alert-success text-center">
+            <p>No Users</p>
+        </div>
 
     @endif
 

@@ -34,4 +34,16 @@
         <!-- /.row -->
     </div>
 
+    <!-- Side Widget Well -->
+    <div class="well">
+        <h4>Recent Posts</h4>
+        <div class="row">
+            <div class="list-group">
+                @foreach($recent_posts as $recent_post)
+                    <a href="{{route('home.post', $recent_post->slug)}}" class="list-group-item recent_posts">{{$recent_post->title}}</a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
 </div>

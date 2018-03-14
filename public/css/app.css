@@ -14,3 +14,22 @@
   display: none;
 }
 
+/* Recent Posts */
+
+.recent_posts {
+  border-style: none;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #000000;
+}
+
+.recent_posts:last-child {
+  border-radius: 0;
+}
+
+.list-group .recent_posts:hover {
+  background-color: #b6b6b6;
+  color: #FFFFFF;
+  border-radius: 0;
+}
+

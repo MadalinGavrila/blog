@@ -40,7 +40,9 @@
 
         @else
 
-            <h1 class="text-center">No Posts</h1>
+            <div class="alert alert-success text-center">
+                <p>No Posts</p>
+            </div>
 
         @endif
 

@@ -79,7 +79,9 @@
 
     @else
 
-        <h1 class="text-center">No Replies</h1>
+        <div class="alert alert-success text-center">
+            <p>No Replies</p>
+        </div>
 
     @endif
 

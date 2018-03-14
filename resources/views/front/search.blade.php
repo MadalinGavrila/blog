@@ -13,7 +13,7 @@
         @if(count($posts))
 
             <div class="alert alert-success text-center">
-                Search: {{Request::input('search')}}
+                <p>Search: {{Request::input('search')}}</p>
             </div>
 
             @foreach($posts as $post)
@@ -45,7 +45,7 @@
         @else
 
             <div class="alert alert-success text-center">
-                No Results
+                <p>No Results</p>
             </div>
 
         @endif
