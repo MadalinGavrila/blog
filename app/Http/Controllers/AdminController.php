@@ -7,6 +7,7 @@ use App\Comment;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,9 @@ class AdminController extends Controller
         $postsCount = Post::count();
         $commentsCount = Comment::count();
 
-        return view('admin.index', compact('usersCount', 'categoriesCount', 'postsCount', 'commentsCount'));
+        $user = Auth::user();
+
+        return view('admin.index', compact('usersCount', 'categoriesCount', 'postsCount', 'commentsCount', 'user'));
     }
 
 }

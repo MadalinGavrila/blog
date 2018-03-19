@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Notifications\CommentPosted;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,9 @@ class PostCommentsController extends Controller
             'body' => $request->body
         ];
 
-        Comment::create($data);
+        $comment = Comment::create($data);
+
+        $comment->post->user->notify(new CommentPosted($comment));
 
         $request->session()->flash('comment_message', 'Your comment has been submitted and is waiting moderation');
 

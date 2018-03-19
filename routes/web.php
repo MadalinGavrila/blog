@@ -29,6 +29,18 @@ Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
 
 Route::group(['middleware'=>'auth'], function(){
 
+    Route::get('/profile', 'UserController@index')->name('user.profile');
+
+    Route::get('/profile/settings', 'UserController@edit')->name('user.profile.settings');
+
+    Route::get('/profile/change_password', 'UserController@change_password')->name('user.profile.change_password');
+
+    Route::patch('/profile/update/{id}', 'UserController@update')->name('user.profile.update');
+
+});
+
+Route::group(['middleware'=>'auth'], function(){
+
     Route::get('/admin', 'AdminController@index')->name('admin');
 
     Route::resource('/admin/users', 'AdminUsersController', ['names'=>[
@@ -92,5 +104,15 @@ Route::group(['middleware'=>'auth'], function(){
     ]]);
 
     Route::delete('/admin/delete/photo', 'AdminPhotosController@deletePhoto')->name('admin.photos.deletePhoto');
+
+    Route::resource('/admin/notifications', 'AdminNotificationsController', ['names'=>[
+        'index'=>'admin.notifications.index',
+        'create'=>'admin.notifications.create',
+        'store'=>'admin.notifications.store',
+        'edit'=>'admin.notifications.edit',
+        'update'=>'admin.notifications.update',
+        'show'=>'admin.notifications.show',
+        'destroy'=>'admin.notifications.destroy'
+    ]]);
 
 });

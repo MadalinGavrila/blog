@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\CommentReply;
-use App\Notifications\ReplyPosted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CommentRepliesController extends Controller
+class AdminNotificationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,11 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $notifications = $user->notifications()->paginate(8);
+
+        return view('admin.notifications.index', compact('notifications'));
     }
 
     /**
@@ -38,25 +39,7 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'body' => 'required'
-        ]);
-
-        $user = Auth::user();
-
-        $data = [
-            'user_id' => $user->id,
-            'comment_id' => $request->comment_id,
-            'body' => $request->body
-        ];
-
-        $commentReply = CommentReply::create($data);
-
-        $commentReply->comment->post->user->notify(new ReplyPosted($commentReply));
-
-        $request->session()->flash('comment_message', 'Your reply has been submitted and is waiting moderation');
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -67,11 +50,7 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::findOrFail($id);
-
-        $replies = $comment->replies()->orderBy('created_at', 'desc')->paginate(8);
-
-        return view('admin.comments.replies.show', compact('replies'));
+        //
     }
 
     /**
@@ -94,9 +73,11 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        CommentReply::findOrFail($id)->update($request->all());
+        $user = Auth::user();
 
-        $request->session()->flash('replies_status', 'Reply has been updated !');
+        $user->unreadNotifications->where('id', $id)->markAsRead();
+
+        $request->session()->flash('notifications_status', 'Notification has been mark as read !');
 
         return redirect()->back();
     }
@@ -109,9 +90,11 @@ class CommentRepliesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        CommentReply::findOrFail($id)->delete();
+        $user = Auth::user();
 
-        $request->session()->flash('replies_status', 'Reply has been deleted !');
+        $user->notifications()->where('id', $id)->delete();
+
+        $request->session()->flash('notifications_status', 'Notification has been deleted !');
 
         return redirect()->back();
     }

@@ -70,7 +70,7 @@ class HomeController extends Controller
             'search' => 'required'
         ]);
 
-        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(1);
+        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(4);
 
         $categories = Category::all();
 

@@ -27,15 +27,26 @@
                         <a href="{{route('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
                     </li>
                 @else
-                    <li>
-                        <a href="{{route('admin')}}">Admin</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{Auth::user()->username}} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @if(Auth::user()->role->name == 'admin')
+                                <li>
+                                    <a href="{{route('admin')}}"><span class="glyphicon glyphicon-dashboard"></span> Admin</a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="{{route('user.profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-off"></span> Log Out</a>
+                            </li>
+                            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
                 @endguest
             </ul>
         </div>

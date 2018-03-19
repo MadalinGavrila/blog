@@ -21,11 +21,25 @@
 }
 
 .recent_posts:last-child {
-    border-radius: 0;
+    border-bottom: none;
 }
 
 .list-group .recent_posts:hover {
     background-color: #b6b6b6;
     color: #FFFFFF;
     border-radius: 0;
+}
+
+/* Notifications */
+.notification-button {
+    margin-top: 10px;
+}
+
+/* Profile Page */
+.profile {
+    font-size: 18px;
+}
+
+.profile-button {
+    margin-left: 5px;
 }

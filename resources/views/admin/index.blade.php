@@ -115,17 +115,14 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            <span class="badge">4 minutes ago</span>
-                            <i class="fa fa-fw fa-comment"></i> Commented on a post
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <span class="badge">1 hour ago</span>
-                            <i class="fa fa-fw fa-user"></i> A new user has been added
-                        </a>
+                        @foreach($user->unreadNotifications as $notification)
+
+                            @include('notifications.' . snake_case(class_basename($notification->type)))
+
+                        @endforeach
                     </div>
                     <div class="text-right">
-                        <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.notifications.index')}}">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

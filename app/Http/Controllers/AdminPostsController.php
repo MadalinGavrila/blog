@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\PostsRequest;
+use App\Notifications\PostPublished;
 use App\Photo;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,7 +59,15 @@ class AdminPostsController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-        $user->posts()->create($input);
+        $post = $user->posts()->create($input);
+
+        $admins = User::where('is_active', 1)->get();
+
+        foreach($admins as $admin){
+            if($admin->role->name == 'admin') {
+                $admin->notify(new PostPublished($post));
+            }
+        }
 
         $request->session()->flash('posts_status', 'A post has been created !');
 
