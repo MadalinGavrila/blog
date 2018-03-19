@@ -14,9 +14,9 @@
                 <div>
                     <span class="profile">Settings</span>
 
-                    <a class="profile-button pull-right btn btn-danger btn-xs" href="{{route('user.profile.change_password')}}"><span class="glyphicon glyphicon-lock"></span> Change Password</a>
+                    <a class="profile-button pull-right btn btn-danger btn-xs" href="{{route('profile.change_password')}}"><span class="glyphicon glyphicon-lock"></span> Change Password</a>
 
-                    <a class="pull-right btn btn-primary btn-xs" href="{{route('user.profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    <a class="pull-right btn btn-primary btn-xs" href="{{route('profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -26,7 +26,7 @@
 
                 <div class="col-md-8">
                     <div class="col-md-6 col-md-offset-3">
-                        {!! Form::model($user, ['method'=>'PATCH', 'action'=>['UserController@update', $user->id], 'files'=>true]) !!}
+                        {!! Form::model($user, ['method'=>'PATCH', 'action'=>['ProfileController@update', $user->id], 'files'=>true]) !!}
 
                         <div class="form-group">
                             {!! Form::label('name', 'Name:') !!} <span class="errors">{{$errors->has('name') ? $errors->first('name') : ''}}</span>

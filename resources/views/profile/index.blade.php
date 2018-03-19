@@ -21,7 +21,7 @@
                 <div>
                     <span class="profile">Profile</span>
 
-                    <a class="pull-right btn btn-primary btn-xs" href="{{route('user.profile.settings')}}"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+                    <a class="pull-right btn btn-primary btn-xs" href="{{route('profile.settings')}}"><span class="glyphicon glyphicon-cog"></span> Settings</a>
                 </div>
             </div>
             <div class="panel-body">

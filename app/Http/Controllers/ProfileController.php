@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use App\Rules\OldPassword;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
 
     public function index()
@@ -63,6 +65,26 @@ class UserController extends Controller
         $user->update($input);
 
         $request->session()->flash('profile_status', 'Profile has been updated !');
+
+        return redirect('/profile');
+    }
+
+    public function update_password(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'old_password' => ['required', new OldPassword],
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
+        $input = $request->all();
+
+        $input['password'] = Hash::make($request->password);
+
+        $user->update($input);
+
+        $request->session()->flash('profile_status', 'Password has been changed !');
 
         return redirect('/profile');
     }

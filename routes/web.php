@@ -29,13 +29,15 @@ Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
 
 Route::group(['middleware'=>'auth'], function(){
 
-    Route::get('/profile', 'UserController@index')->name('user.profile');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
 
-    Route::get('/profile/settings', 'UserController@edit')->name('user.profile.settings');
+    Route::get('/profile/settings', 'ProfileController@edit')->name('profile.settings');
 
-    Route::get('/profile/change_password', 'UserController@change_password')->name('user.profile.change_password');
+    Route::get('/profile/change_password', 'ProfileController@change_password')->name('profile.change_password');
 
-    Route::patch('/profile/update/{id}', 'UserController@update')->name('user.profile.update');
+    Route::patch('/profile/update/{id}', 'ProfileController@update')->name('profile.update');
+
+    Route::patch('/profile/update_password/{id}', 'ProfileController@update_password')->name('profile.update_password');
 
 });
 

@@ -36,7 +36,7 @@
                                 </li>
                             @endif
                             <li>
-                                <a href="{{route('user.profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                                <a href="{{route('profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
                             </li>
                             <li class="divider"></li>
                             <li>
