@@ -20,7 +20,13 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(8);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')) {
+            $posts = Post::orderBy('created_at', 'desc')->paginate(8);
+        } else {
+            $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(8);
+        }
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -61,10 +67,10 @@ class AdminPostsController extends Controller
 
         $post = $user->posts()->create($input);
 
-        $admins = User::where('is_active', 1)->get();
+        $users = User::where('is_active', 1)->get();
 
-        foreach($admins as $admin){
-            if($admin->role->name == 'admin') {
+        foreach($users as $admin){
+            if($admin->checkRole('admin')) {
                 $admin->notify(new PostPublished($post));
             }
         }
@@ -93,7 +99,13 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            $post = Post::findOrFail($id);
+        } else {
+            $post = $user->posts()->findOrFail($id);
+        }
 
         $categories = Category::pluck('name', 'id')->all();
 
@@ -109,7 +121,13 @@ class AdminPostsController extends Controller
      */
     public function update(PostsRequest $request, $id)
     {
-        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            $post = Post::findOrFail($id);
+        } else {
+            $post = $user->posts()->findOrFail($id);
+        }
 
         $input = $request->all();
 
@@ -138,7 +156,13 @@ class AdminPostsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')) {
+            $post = Post::findOrFail($id);
+        } else {
+            $post = $user->posts()->findOrFail($id);
+        }
 
         if($post->photo){
             unlink(public_path() . $post->photo->file);

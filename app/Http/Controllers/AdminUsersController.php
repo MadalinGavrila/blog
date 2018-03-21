@@ -80,7 +80,8 @@ class AdminUsersController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:50',
             'role_id' => 'required',
-            'is_active' => 'required'
+            'is_active' => 'required',
+            'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $user = User::findOrFail($id);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPhotosController extends Controller
 {
@@ -14,7 +15,13 @@ class AdminPhotosController extends Controller
      */
     public function index()
     {
-        $photos = Photo::orderBy('created_at', 'desc')->paginate(8);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            $photos = Photo::orderBy('created_at', 'desc')->paginate(8);
+        } else {
+            $photos = $user->photo()->orderBy('created_at', 'desc')->paginate(8);
+        }
 
         return view('admin.photos.index', compact('photos'));
     }

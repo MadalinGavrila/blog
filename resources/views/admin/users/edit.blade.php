@@ -4,6 +4,8 @@
 
 @section('content')
 
+    @include('includes.delete_modal')
+
     <h1 class="page-header">
         User <small>Update</small>
     </h1>
@@ -23,41 +25,67 @@
 
             {!! Form::model($user, ['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id], 'files'=>true]) !!}
 
-            <div class="form-group">
-                {!! Form::label('name', 'Name:') !!}
-                {!! Form::text('name', null, ['class'=>'form-control']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('name', 'Name:') !!}
+                    {!! Form::text('name', null, ['class'=>'form-control']) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('role_id', 'Role:') !!}
-                {!! Form::select('role_id', $roles, null, ['class'=>'form-control']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('role_id', 'Role:') !!}
+                    {!! Form::select('role_id', $roles, null, ['class'=>'form-control']) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('is_active', 'Status:') !!}
-                {!! Form::select('is_active', [0 => 'Not Active', 1 => 'Active'], null, ['class'=>'form-control']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('is_active', 'Status:') !!}
+                    {!! Form::select('is_active', [0 => 'Not Active', 1 => 'Active'], null, ['class'=>'form-control']) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('photo_id', 'Photo:') !!}
-                {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('photo_id', 'Photo:') !!}
+                    {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::submit('Update', ['class'=>'btn btn-primary col-md-6']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::submit('Update', ['class'=>'btn btn-primary col-md-6']) !!}
+                </div>
 
             {!! Form::close() !!}
 
 
-            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id]]) !!}
+            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id], 'class'=>'form-delete']) !!}
 
-            <div class="form-group">
-                {!! Form::submit('Delete', ['class'=>'btn btn-danger col-md-6']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::submit('Delete', ['class'=>'btn btn-danger col-md-6']) !!}
+                </div>
 
             {!! Form::close() !!}
         </div>
     </div>
+
+@endsection
+
+@section('scripts')
+
+    <script>
+
+        $(document).ready(function(){
+
+            $(".form-delete").on('click', function(e){
+
+                e.preventDefault();
+
+                var form = $(this);
+
+                $("#delete_modal").modal({ backdrop: 'static', keyboard: false }).on('click', '#delete-btn', function(){
+
+                    form.submit();
+
+                });
+
+            });
+
+        });
+
+    </script>
 
 @endsection

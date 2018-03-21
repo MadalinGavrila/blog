@@ -41,7 +41,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 });
 
-Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware'=>'role'], function(){
 
     Route::get('/admin', 'AdminController@index')->name('admin');
 

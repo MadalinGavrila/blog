@@ -30,7 +30,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{Auth::user()->username}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            @if(Auth::user()->role->name == 'admin')
+                            @if(Auth::user()->checkRole('admin', 'author'))
                                 <li>
                                     <a href="{{route('admin')}}"><span class="glyphicon glyphicon-dashboard"></span> Admin</a>
                                 </li>

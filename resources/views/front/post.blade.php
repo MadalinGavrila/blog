@@ -29,7 +29,7 @@
         <hr>
 
         <!-- Comments Form -->
-        @if(Auth::check())
+        @if(Auth::check() && Auth::user()->isActive())
 
             <div class="well">
                 <h4>Leave a Comment:
@@ -87,25 +87,29 @@
                                     </div>
 
                                     @if($loop->last)
-                                        <div class="reply-container">
-                                            <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
-                                            <div class="reply-form">
-                                                {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
+                                        @if(Auth::check() && Auth::user()->isActive())
+                                            <div class="reply-container">
+                                                <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
-                                                <input type="hidden" name="comment_id" value="{{$comment->id}}" />
+                                                <div class="reply-form">
+                                                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
 
-                                                <div class="form-group">
-                                                    {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
+                                                        <input type="hidden" name="comment_id" value="{{$comment->id}}" />
+
+                                                        <div class="form-group">
+                                                            {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::submit('Submit', ['class'=>'btn btn-primary btn-xs']) !!}
+                                                        </div>
+
+                                                    {!! Form::close() !!}
                                                 </div>
-
-                                                <div class="form-group">
-                                                    {!! Form::submit('Submit', ['class'=>'btn btn-primary btn-xs']) !!}
-                                                </div>
-
-                                                {!! Form::close() !!}
                                             </div>
-                                        </div>
+                                        @endif
+
                                     @endif
 
                                 </div>
@@ -113,25 +117,29 @@
                             @endforeach
 
                         @else
-                            <div class="reply-container">
-                                <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
-                                <div class="reply-form">
-                                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
+                            @if(Auth::check() && Auth::user()->isActive())
+                                <div class="reply-container">
+                                    <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
-                                    <input type="hidden" name="comment_id" value="{{$comment->id}}" />
+                                    <div class="reply-form">
+                                        {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
 
-                                    <div class="form-group">
-                                        {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
+                                            <input type="hidden" name="comment_id" value="{{$comment->id}}" />
+
+                                            <div class="form-group">
+                                                {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
+                                            </div>
+
+                                            <div class="form-group">
+                                                {!! Form::submit('Submit', ['class'=>'btn btn-primary btn-xs']) !!}
+                                            </div>
+
+                                        {!! Form::close() !!}
                                     </div>
-
-                                    <div class="form-group">
-                                        {!! Form::submit('Submit', ['class'=>'btn btn-primary btn-xs']) !!}
-                                    </div>
-
-                                    {!! Form::close() !!}
                                 </div>
-                            </div>
+                            @endif
+
                         @endif
 
                     </div>

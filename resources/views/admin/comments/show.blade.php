@@ -4,6 +4,8 @@
 
 @section('content')
 
+    @include('includes.delete_modal')
+
     <h1 class="page-header">
         Comments <small>List</small>
     </h1>
@@ -60,7 +62,7 @@
                             @endif
                         </td>
                         <td>
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['PostCommentsController@destroy', $comment->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['PostCommentsController@destroy', $comment->id], 'class'=>'form-delete']) !!}
                             <div class="form-group">
                                 {!! Form::submit('Delete', ['class'=>'btn btn-danger btn-xs']) !!}
                             </div>
@@ -86,5 +88,31 @@
         </div>
 
     @endif
+
+@endsection
+
+@section('scripts')
+
+    <script>
+
+        $(document).ready(function(){
+
+            $(".form-delete").on('click', function(e){
+
+                e.preventDefault();
+
+                var form = $(this);
+
+                $("#delete_modal").modal({ backdrop: 'static', keyboard: false }).on('click', '#delete-btn', function(){
+
+                    form.submit();
+
+                });
+
+            });
+
+        });
+
+    </script>
 
 @endsection

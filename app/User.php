@@ -49,6 +49,28 @@ class User extends Authenticatable
         return $this->uploads . "placeholder_user.jpg";
     }
 
+    public function checkRole($role1, $role2 = '') {
+        if(!empty($role2)) {
+            if($this->role->name == $role1 || $this->role->name == $role2) {
+                if($this->isActive()) {
+                    return true;
+                }
+            }
+        } else if($this->role->name == $role1 && $this->isActive()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isActive() {
+        if($this->is_active) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function role()
     {
         return $this->belongsTo('App\Role');

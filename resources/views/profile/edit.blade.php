@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('photo_id', 'Photo:') !!}
+                            {!! Form::label('photo_id', 'Photo:') !!} <span class="errors">{{$errors->has('photo_id') ? $errors->first('photo_id') : ''}}</span>
                             {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
                         </div>
 

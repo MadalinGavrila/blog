@@ -26,7 +26,8 @@ class PostsRequest extends FormRequest
         return [
             'title' => 'required',
             'category_id' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

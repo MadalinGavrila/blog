@@ -39,13 +39,15 @@ class ProfileController extends Controller
 
         if(trim($request->email) == $user->email){
             $this->validate($request, [
-                'name' => 'required|string|max:50'
+                'name' => 'required|string|max:50',
+                'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
             $input = $request->except('email');
         } else {
             $this->validate($request, [
                 'name' => 'required|string|max:50',
+                'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048',
                 'email' => 'required|string|email|max:255|unique:users'
             ]);
 
