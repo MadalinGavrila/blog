@@ -6,6 +6,7 @@ use App\Photo;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUsersController extends Controller
 {
@@ -16,9 +17,13 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(8);
+        if(Auth::user()->checkRole('admin')){
+            $users = User::orderBy('created_at', 'desc')->paginate(8);
 
-        return view('admin.users.index', compact('users'));
+            return view('admin.users.index', compact('users'));
+        }
+
+        return view('admin.users.index');
     }
 
     /**
@@ -61,11 +66,15 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        if(Auth::user()->checkRole('admin')){
+            $user = User::findOrFail($id);
 
-        $roles = Role::pluck('name', 'id')->all();
+            $roles = Role::pluck('name', 'id')->all();
 
-        return view('admin.users.edit', compact('user', 'roles'));
+            return view('admin.users.edit', compact('user', 'roles'));
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -77,32 +86,36 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:50',
-            'role_id' => 'required',
-            'is_active' => 'required',
-            'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+        if(Auth::user()->checkRole('admin')){
+            $this->validate($request, [
+                'name' => 'required|string|max:50',
+                'role_id' => 'required',
+                'is_active' => 'required',
+                'photo_id' => 'mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
 
-        $user = User::findOrFail($id);
+            $user = User::findOrFail($id);
 
-        $input = $request->all();
+            $input = $request->all();
 
-        if($file = $request->file('photo_id')) {
-            $name = time() . $file->getClientOriginalName();
+            if($file = $request->file('photo_id')) {
+                $name = time() . $file->getClientOriginalName();
 
-            $file->move('images', $name);
+                $file->move('images', $name);
 
-            $photo = Photo::create(['file'=>$name]);
+                $photo = Photo::create(['file'=>$name]);
 
-            $input['photo_id'] = $photo->id;
+                $input['photo_id'] = $photo->id;
+            }
+
+            $user->update($input);
+
+            $request->session()->flash('users_status', 'User has been updated !');
+
+            return redirect('/admin/users');
         }
 
-        $user->update($input);
-
-        $request->session()->flash('users_status', 'User has been updated !');
-
-        return redirect('/admin/users');
+        return redirect()->back();
     }
 
     /**
@@ -113,18 +126,22 @@ class AdminUsersController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        if(Auth::user()->checkRole('admin')){
+            $user = User::findOrFail($id);
 
-        if($user->photo){
-            unlink(public_path() . $user->photo->file);
+            if($user->photo){
+                unlink(public_path() . $user->photo->file);
 
-            $user->photo()->delete();
+                $user->photo()->delete();
+            }
+
+            $user->delete();
+
+            $request->session()->flash('users_status', 'User has been deleted !');
+
+            return redirect('/admin/users');
         }
 
-        $user->delete();
-
-        $request->session()->flash('users_status', 'User has been deleted !');
-
-        return redirect('/admin/users');
+        return redirect()->back();
     }
 }

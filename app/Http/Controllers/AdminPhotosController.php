@@ -19,11 +19,13 @@ class AdminPhotosController extends Controller
 
         if($user->checkRole('admin')){
             $photos = Photo::orderBy('created_at', 'desc')->paginate(8);
-        } else {
-            $photos = $user->photo()->orderBy('created_at', 'desc')->paginate(8);
-        }
 
-        return view('admin.photos.index', compact('photos'));
+            return view('admin.photos.index', compact('photos'));
+        } else {
+            $posts_photo = $user->posts()->has('photo')->orderBy('created_at', 'desc')->paginate(8);
+
+            return view('admin.photos.other_index', compact('posts_photo'));
+        }
     }
 
     /**

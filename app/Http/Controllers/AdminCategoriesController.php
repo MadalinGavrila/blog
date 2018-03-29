@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminCategoriesController extends Controller
 {
@@ -102,9 +103,15 @@ class AdminCategoriesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Category::findOrFail($id)->delete();
+        if(Auth::user()->checkRole('admin')){
 
-        $request->session()->flash('categories_status', 'Category has been deleted !');
+            Category::findOrFail($id)->delete();
+
+            $request->session()->flash('categories_status', 'Category has been deleted !');
+
+            return redirect('/admin/categories');
+
+        }
 
         return redirect('/admin/categories');
     }

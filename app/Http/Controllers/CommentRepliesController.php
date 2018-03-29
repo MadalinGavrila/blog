@@ -67,7 +67,13 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::findOrFail($id);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            $comment = Comment::findOrFail($id);
+        } else {
+            $comment = $user->postComments()->findOrFail($id);
+        }
 
         $replies = $comment->replies()->orderBy('created_at', 'desc')->paginate(8);
 

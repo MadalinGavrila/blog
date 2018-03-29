@@ -33,13 +33,17 @@
             {!! Form::close() !!}
 
 
-            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminCategoriesController@destroy', $category->id], 'class'=>'form-delete']) !!}
+            @if(Auth::user()->checkRole('admin'))
 
-                <div class="form-group">
-                    {!! Form::submit('Delete', ['class'=>'btn btn-danger col-md-6']) !!}
-                </div>
+                {!! Form::open(['method'=>'DELETE', 'action'=>['AdminCategoriesController@destroy', $category->id], 'class'=>'form-delete']) !!}
 
-            {!! Form::close() !!}
+                    <div class="form-group">
+                        {!! Form::submit('Delete', ['class'=>'btn btn-danger col-md-6']) !!}
+                    </div>
+
+                {!! Form::close() !!}
+
+            @endif
         </div>
     </div>
 

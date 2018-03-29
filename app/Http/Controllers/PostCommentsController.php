@@ -17,9 +17,19 @@ class PostCommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(8);
+        $user = Auth::user();
 
-        return view('admin.comments.index', compact('comments'));
+        if($user->checkRole('admin')){
+            $comments = Comment::orderBy('created_at', 'desc')->paginate(8);
+
+            return view('admin.comments.index', compact('comments'));
+        } else {
+            $comments = $user->postComments()->orderBy('created_at', 'desc')->paginate(8);
+
+            $posts = $user->posts;
+
+            return view('admin.comments.other_index', compact('comments', 'posts'));
+        }
     }
 
     /**
@@ -69,7 +79,13 @@ class PostCommentsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            $post = Post::findOrFail($id);
+        } else {
+            $post = $user->posts()->findOrFail($id);
+        }
 
         $comments = $post->comments()->orderBy('created_at', 'desc')->paginate(8);
 
@@ -96,7 +112,13 @@ class PostCommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Comment::findOrFail($id)->update($request->all());
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            Comment::findOrFail($id)->update($request->all());
+        } else {
+            $user->postComments()->findOrFail($id)->update($request->all());
+        }
 
         $request->session()->flash('comments_status', 'Comment has been updated !');
 
@@ -111,7 +133,13 @@ class PostCommentsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Comment::findOrFail($id)->delete();
+        $user = Auth::user();
+
+        if($user->checkRole('admin')){
+            Comment::findOrFail($id)->delete();
+        } else {
+            $user->postComments()->findOrFail($id)->delete();
+        }
 
         $request->session()->flash('comments_status', 'Comment has been deleted !');
 
