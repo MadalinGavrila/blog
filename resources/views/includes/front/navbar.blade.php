@@ -35,10 +35,12 @@
                                     <a href="{{route('admin')}}"><span class="glyphicon glyphicon-dashboard"></span> Admin</a>
                                 </li>
                             @endif
-                            <li>
-                                <a href="{{route('profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
-                            </li>
-                            <li class="divider"></li>
+                            @if(Auth::user()->isActive())
+                                <li>
+                                    <a href="{{route('profile')}}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                                </li>
+                                <li class="divider"></li>
+                            @endif
                             <li>
                                 <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-off"></span> Log Out</a>
                             </li>

@@ -17,7 +17,7 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -27,7 +27,7 @@ class CommentRepliesController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -88,7 +88,7 @@ class CommentRepliesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect()->back();
     }
 
     /**

@@ -27,7 +27,7 @@ Route::get('/user/{slug}', 'HomeController@postsUser')->name('home.user.post');
 
 Route::post('/sendmail', 'HomeController@sendMail')->name('home.sendmail');
 
-Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware'=>'active'], function(){
 
     Route::get('/profile', 'ProfileController@index')->name('profile');
 

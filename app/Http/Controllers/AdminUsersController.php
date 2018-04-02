@@ -33,7 +33,7 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminUsersController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->back();
     }
 
     /**

@@ -27,7 +27,7 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -57,7 +57,7 @@ class AdminCategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->back();
     }
 
     /**

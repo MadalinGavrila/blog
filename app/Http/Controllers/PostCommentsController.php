@@ -39,7 +39,7 @@ class PostCommentsController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -100,7 +100,7 @@ class PostCommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect()->back();
     }
 
     /**
