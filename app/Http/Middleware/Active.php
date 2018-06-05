@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 class Active
 {
@@ -16,12 +15,14 @@ class Active
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()){
-            if(Auth::user()->isActive()){
-                return $next($request);
-            }
+        if(!auth()->check()){
+            abort(404);
         }
 
-        return redirect('/');
+        if(!$request->user()->isActive()){
+            abort(404);
+        }
+
+        return $next($request);
     }
 }
