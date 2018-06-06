@@ -38,8 +38,14 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
+        return redirect()->back();
+    }
+
+    public function storeReply(Request $request)
+    {
         $this->validate($request, [
-            'body' => 'required'
+            'body' => 'required',
+            'comment_id' => 'required'
         ]);
 
         $user = Auth::user();

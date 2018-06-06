@@ -50,8 +50,14 @@ class PostCommentsController extends Controller
      */
     public function store(Request $request)
     {
+        return redirect()->back();
+    }
+
+    public function storeComment(Request $request)
+    {
         $this->validate($request, [
-            'body' => 'required'
+            'body' => 'required',
+            'post_id' => 'required'
         ]);
 
         $user = Auth::user();

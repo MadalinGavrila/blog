@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -38,6 +27,10 @@ Route::group(['middleware'=>'active'], function(){
     Route::patch('/profile/update/{id}', 'ProfileController@update')->name('profile.update');
 
     Route::patch('/profile/update_password/{id}', 'ProfileController@update_password')->name('profile.update_password');
+
+    Route::post('/comment', 'PostCommentsController@storeComment')->name('comment.store');
+
+    Route::post('/comment/reply', 'CommentRepliesController@storeReply')->name('comment.reply.store');
 
 });
 

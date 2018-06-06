@@ -36,7 +36,7 @@
                     <span class="errors">{{$errors->has('body') ? $errors->first('body') : ''}}</span>
                 </h4>
 
-                {!! Form::open(['method'=>'POST', 'action'=>'PostCommentsController@store']) !!}
+                {!! Form::open(['method'=>'POST', 'action'=>'PostCommentsController@storeComment']) !!}
 
                     <input type="hidden" name="post_id" value="{{$post->id}}" />
 
@@ -93,7 +93,7 @@
                                                 <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
                                                 <div class="reply-form">
-                                                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
+                                                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@storeReply']) !!}
 
                                                         <input type="hidden" name="comment_id" value="{{$comment->id}}" />
 
@@ -123,7 +123,7 @@
                                     <button class="toggle-reply btn btn-primary btn-xs pull-right">Reply</button>
 
                                     <div class="reply-form">
-                                        {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@store']) !!}
+                                        {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@storeReply']) !!}
 
                                             <input type="hidden" name="comment_id" value="{{$comment->id}}" />
 
